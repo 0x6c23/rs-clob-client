@@ -310,7 +310,7 @@ impl SubscriptionManager {
                         let should_yield = match &msg {
                             WsMessage::Book(book) => subscribed.contains_key(&book.asset_id),
                             WsMessage::PriceChange(price) => {
-                                tacing::info!("price changes for: {:?}", price.price_changes.iter().map(|pc| pc.asset_id.to_string()).collect::<Vec<_>>());
+                                tracing::info!("price changes for: {:?}", price.price_changes.iter().map(|pc| pc.asset_id.to_string()).collect::<Vec<_>>());
                                 let any_match = price.price_changes.iter().any(|pc| subscribed.contains_key(&pc.asset_id));
                                 if !any_match {
                                     tracing::info!(
