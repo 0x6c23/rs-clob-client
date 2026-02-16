@@ -234,7 +234,7 @@ impl<S: State> Client<S> {
     /// * `asset_ids` - List of asset/token IDs to monitor
     pub fn add_market_assets(&self, asset_ids: Vec<U256>) -> Result<()> {
         let resources = self.inner.get_or_create_channel(ChannelType::Market)?;
-        resources.subscriptions.add_market_assets(asset_ids);
+        resources.subscriptions.add_market_assets(asset_ids)
     }
 
     /// Unsubscribe from market data for specific assets.
