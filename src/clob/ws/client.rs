@@ -233,7 +233,8 @@ impl<S: State> Client<S> {
     ///
     /// * `asset_ids` - List of asset/token IDs to monitor
     pub fn add_market_assets(&self, asset_ids: Vec<U256>) -> Result<()> {
-        self.subscription.add_market_assets(asset_ids)
+        let resources = self.inner.get_or_create_channel(ChannelType::Market)?;
+        resources.subscriptions.add_market_assets(asset_ids);
     }
 
     /// Unsubscribe from market data for specific assets.
@@ -242,7 +243,8 @@ impl<S: State> Client<S> {
     /// request to the server when the reference count reaches zero (no other streams
     /// are using that asset).
     pub fn unsubscribe_market(&self, asset_ids: &[U256]) -> Result<()> {
-        self.subscription.unsubscribe_market(asset_ids)
+        let resources = self.inner.get_or_create_channel(ChannelType::Market)?;
+        resources.subscriptions.unsubscribe_market(asset_ids)
     }
 
     /// Subscribes to real-time tick size change events for specified assets.
